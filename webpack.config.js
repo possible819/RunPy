@@ -1,12 +1,18 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: './src/app.ts',
+  entry: './src/render/index.ts',
+  resolve: {
+    extensions: ['.js', '.ts'],
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
+    filename: 'renderer.js',
   },
-  target: 'electron-main',
+  target: 'electron-renderer',
+  plugins: [new HtmlWebpackPlugin({ template: 'index.html' })],
   module: {
     rules: [
       {
