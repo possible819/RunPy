@@ -1,6 +1,6 @@
 # RunPy
 
-> Python runner powered
+> Python runner
 
 # Scripts
 
