@@ -1,5 +1,8 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
-import { printOnNode } from './controllers/print-on-node'
+import { BrowserWindow, app } from 'electron'
+
+import { IpcChannels } from './consts'
+import { IpcController } from './controllers/ipc-controller'
+import { PythonUtil } from './controllers/python-util'
 
 function createWindow(): void {
   const mainWindow: BrowserWindow = new BrowserWindow({
@@ -9,10 +12,13 @@ function createWindow(): void {
       nodeIntegration: true,
     },
   })
-  mainWindow.loadFile('./dist/index.html')
 
-  ipcMain.handle('channel', (event, args) => {
-    printOnNode(args)
+  mainWindow.loadFile('./dist/index.html')
+  const pythonUtil: PythonUtil = new PythonUtil()
+  const ipcController: IpcController = new IpcController(mainWindow)
+  ipcController.addListener(IpcChannels.RequestInterpret, async (event: Event, codes: string) => {
+    const result: string = await pythonUtil.interpret(codes)
+    ipcController.sendMessage(IpcChannels.ResponseInterpret, result)
   })
 }
 
