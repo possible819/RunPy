@@ -2,6 +2,7 @@ import { BrowserWindow, app } from 'electron'
 
 import { IpcChannels } from './consts'
 import { IpcController } from './controllers/ipc-controller'
+import { MenuController } from './controllers/menu-controller'
 import { PythonUtil } from './controllers/python-util'
 
 function createWindow(): void {
@@ -11,7 +12,11 @@ function createWindow(): void {
     webPreferences: {
       nodeIntegration: true,
     },
+    autoHideMenuBar: true,
   })
+
+  const menuController: MenuController = new MenuController()
+  menuController.setApplicationMenu()
 
   mainWindow.loadFile('./dist/index.html')
   const pythonUtil: PythonUtil = new PythonUtil()
