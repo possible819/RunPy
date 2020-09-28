@@ -2,7 +2,7 @@
 
 > Python runner
 
-# Scripts
+# Scripts for running application
 
 ```sh
 # Build render process via webpack with watch on it & launch electron
@@ -17,3 +17,38 @@ $ yarn build
 # Build render process sources via webpack for development env
 $ yarn build:dev
 ```
+
+# Scripts for pacakging application
+
+```sh
+# Packaging for MacOS
+$ yarn packaging:mac
+
+# Packaging for Windows
+$ yarn packaging:win
+
+# Packaging for Linux
+$ yarn packaging:linux
+
+# Clean up packages directory
+$ yarn packaging:clean
+```
+
+# Scripts for creating installer
+
+```sh
+# Creating installer for MacOS
+$ yarn installer:dmg
+
+# Creating installer for Windows
+$ yarn installer:win
+
+# Creating installer for Debian
+$ yarn installer:debian
+```
+
+Authors
+
+> Jay Lee <jaylee.possible@gmail.com>
+
+> Gincheong <gincheong2@gmail.com>
