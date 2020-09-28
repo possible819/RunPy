@@ -1,11 +1,12 @@
 import { exec } from 'child_process'
+import { app } from 'electron'
 import fs from 'fs'
 import path from 'path'
 import util from 'util'
 
 export class PythonUtil {
   public pythonPath: string = 'python3'
-  public filePath: string = path.resolve(__dirname, 'temp.py')
+  public filePath: string = path.resolve(app.getAppPath(), '../temp.py')
 
   private asyncExec: any = util.promisify(exec)
 
