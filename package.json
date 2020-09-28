@@ -16,7 +16,7 @@
     "packaging:linux": "electron-packager . --overwrite --asar --platform linux --arch x64 --out packages",
     "packaging": "yarn packaging:mac && yarn packaging:win && yarn packaging:linux",
     "packaging:clean": "rm -r ./packages",
-    "installer:debian": "electron-installer-debian --src ./packages/run-py-linux-x64/ --dest ./installer/ --arch amd64",
+    "installer:debian": "electron-installer-debian --src ./packages/run-py-linux-x64/ --dest ./installers/ --arch amd64",
     "installer:clean": "rm -r ./installers"
   },
   "devDependencies": {
