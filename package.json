@@ -21,6 +21,7 @@
     "installer:clean": "rm -r ./installers"
   },
   "devDependencies": {
+    "@types/codemirror": "^0.0.98",
     "asar": "^3.0.3",
     "concurrently": "^5.3.0",
     "css-loader": "^4.3.0",
@@ -38,7 +39,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@types/codemirror": "0.0.98",
     "codemirror": "^5.58.1",
     "lit-element": "^2.4.0"
   }
