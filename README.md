@@ -1,5 +1,12 @@
 # RunPy
 
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="#" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+</p>
+
 > Python runner
 
 # Scripts for running application
@@ -34,6 +41,8 @@ $ yarn packaging:linux
 $ yarn packaging:clean
 ```
 
+> Above scripts will generate each pacakges under ./packages
+
 # Scripts for creating installer
 
 ```sh
@@ -47,8 +56,10 @@ $ yarn installer:win
 $ yarn installer:debian
 ```
 
-Authors
+> Above scripts will generate each installers under ./installers
 
-> Jay Lee <jaylee.possible@gmail.com>
+# Authors
 
-> Gincheong <gincheong2@gmail.com>
+**Jay Lee <jaylee.possible@gmail.com> [:house:](https://possible819.github.io)**
+
+**Gincheong <gincheong2@gmail.com> [:house:](https://gincheong.github.io)**
