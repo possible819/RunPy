@@ -15,8 +15,8 @@ function createWindow(): void {
     autoHideMenuBar: true,
   })
 
-  const menuController: MenuController = new MenuController()
-  menuController.setApplicationMenu()
+  // const menuController: MenuController = new MenuController()
+  // menuController.setApplicationMenu()
 
   mainWindow.loadFile('./dist/index.html')
   const pythonUtil: PythonUtil = new PythonUtil()
