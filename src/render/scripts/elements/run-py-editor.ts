@@ -45,6 +45,14 @@ export class RunPyEditor extends LitElement {
         mode: 'python',
         scrollbarStyle: 'null',
         autofocus: true,
+        tabSize: 2,
+        extraKeys: {
+          Tab: function (cm: Editor) {
+            const indentUnit: number = cm.getOption('indentUnit') || 0
+            const spaces = Array(indentUnit + 1).join(' ')
+            cm.replaceSelection(spaces)
+          },
+        },
       })
 
       this.codeMirrorEditor.on('changes', this.onChangesHandler.bind(this))
