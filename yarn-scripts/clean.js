@@ -1,7 +1,7 @@
 const fs = require('fs')
 const DISTRIBUTE_PATH = 'dist'
-const PACKAGE_PATH = 'package'
-const INSTALLER_PATH = 'installer'
+const PACKAGE_PATH = 'packages'
+const INSTALLER_PATH = 'installers'
 
 const PATHS = new Array(DISTRIBUTE_PATH, PACKAGE_PATH, INSTALLER_PATH)
 
