@@ -8,17 +8,17 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"webpack -w --config webpack.config.dev.js\" \"tsc && electron .\"",
-    "clean": "rm -r dist",
+    "clean": "node ./yarn-scripts/clean.js",
     "build": "webpack && tsc",
     "build:dev": "webpack --config ./webpack.config.dev.js && tsc",
-    "packaging:mac": "yarn clean && yarn build && electron-packager . --overwrite --asar --platform darwin --arch x64 --out packages",
-    "packaging:win": "yarn clean && yarn build && electron-packager . --overwrite --asar --platform win32 --arich x64 --out packages",
-    "packaging:linux": "yarn clean && yarn build && electron-packager . --overwrite --asar --platform linux --arch x64 --out packages",
-    "packaging:clean": "rm -r ./packages",
+    "packaging:mac": "yarn clean package && yarn build && electron-packager . --overwrite --asar --platform darwin --arch x64 --out packages",
+    "packaging:win": "yarn clean package && yarn build && electron-packager . --overwrite --asar --platform win32 --arich x64 --out packages",
+    "packaging:linux": "yarn clean package && yarn build && electron-packager . --overwrite --asar --platform linux --arch x64 --out packages",
+    "packaging:clean": "yarn clean package",
     "installer:debian": "yarn packaging:linux && electron-installer-debian --src ./packages/run-py-linux-x64/ --dest ./installers/ --arch amd64",
     "installer:dmg": "yarn packaging:mac && electron-installer-dmg ./packages/run-py-darwin-x64/run-py.app RunPy --out=./installers/",
     "installer:win": "yarn packaging:win && electron-installer-windows --src ./packages/run-py-win32-x64/ --dest ./installers/",
-    "installer:clean": "rm -r ./installers"
+    "installer:clean": "yarn clean installer"
   },
   "devDependencies": {
     "@types/codemirror": "^0.0.98",
