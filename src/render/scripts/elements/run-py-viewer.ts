@@ -23,8 +23,6 @@ export class RunPyViewer extends LitElement {
         :host > .CodeMirror {
           flex: 1;
           height: inherit;
-          min-width: 50vw;
-          max-width: 50vw;
         }
       `,
     ]
