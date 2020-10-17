@@ -5,4 +5,10 @@ body {
   height: 100%;
   flex: 1;
   overflow: hidden;
+
+  /* Theme style properties */
+  --theme-bg-color: #1a262c;
+  --theme-color: #455157;
+
+  --code-mirror-font-size: 12pt;
 }

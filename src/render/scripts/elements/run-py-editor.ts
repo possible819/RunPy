@@ -25,23 +25,27 @@ export class RunPyEditor extends LitElement {
         :host > .CodeMirror {
           flex: 1;
           height: inherit;
+          font-size: var(--code-mirror-font-size);
         }
       `,
     ]
   }
+
   render() {
     return html`<textarea id="code-editor"></textarea>`
   }
 
   firstUpdated(): void {
+    document.body.style.setProperty('--code-mirror-font-size', localStorage.getItem(LocalStorageKeys.FontSize + 'pt'))
+
     let codeEditor: HTMLTextAreaElement | null = this.renderRoot.querySelector('textarea#code-editor')
     if (codeEditor) {
       this.codeMirrorEditor = CodeMirror.fromTextArea(codeEditor, {
         lineNumbers: true,
         lineWrapping: true,
+        scrollbarStyle: 'null',
         theme: 'material',
         mode: 'python',
-        scrollbarStyle: 'null',
         autofocus: true,
         tabSize: 2,
         extraKeys: {

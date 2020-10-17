@@ -1,10 +1,10 @@
 import 'codemirror/mode/python/python'
 
 import { CSSResultArray, LitElement, css, customElement, html, property } from 'lit-element'
+import { IpcChannels, LocalStorageKeys } from '../../consts'
 
 import CodeMirror from 'codemirror'
 import { CodeMirrorStyles } from '../../assets/styles/code-mirror-style'
-import { IpcChannels } from '../../consts'
 import { IpcUtil } from '../utils'
 
 @customElement('run-py-viewer')
@@ -23,6 +23,7 @@ export class RunPyViewer extends LitElement {
         :host > .CodeMirror {
           flex: 1;
           height: inherit;
+          font-size: var(--code-mirror-font-size);
         }
       `,
     ]
@@ -32,11 +33,14 @@ export class RunPyViewer extends LitElement {
   }
 
   firstUpdated(): void {
+    document.body.style.setProperty('--code-mirror-font-size', localStorage.getItem(LocalStorageKeys.FontSize + 'pt'))
+
     let codeEditor: HTMLTextAreaElement | null = this.renderRoot.querySelector('textarea#code-viewer')
     if (codeEditor) {
       this.codeMirrorEditor = CodeMirror.fromTextArea(codeEditor, {
         lineNumbers: true,
         lineWrapping: true,
+        scrollbarStyle: 'null',
         theme: 'material',
         mode: 'python',
         readOnly: true,
