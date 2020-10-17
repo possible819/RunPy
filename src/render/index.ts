@@ -1,7 +1,9 @@
-import { css, CSSResult, customElement, html, LitElement } from 'lit-element'
 import './assets/styles/shared-style.css'
 import './scripts/elements/run-py-editor'
 import './scripts/elements/run-py-viewer'
+import './scripts/elements/setting-bar'
+
+import { CSSResult, LitElement, css, customElement, html } from 'lit-element'
 
 @customElement('run-py')
 export class RunPy extends LitElement {
@@ -10,12 +12,14 @@ export class RunPy extends LitElement {
       :host {
         width: 90%;
         display: flex;
+        flex-direction: column;
         flex: 1;
       }
       #container {
         width: 100%;
         display: flex;
         flex: 1;
+        overflow: auto;
       }
       #container.resizable {
         cursor: col-resize;
@@ -34,6 +38,10 @@ export class RunPy extends LitElement {
       run-py-viewer {
         height: 100%;
       }
+      footer {
+        padding: 5px;
+        background-color: var(--theme-bg-color);
+      }
     `
   }
 
@@ -47,6 +55,10 @@ export class RunPy extends LitElement {
           <run-py-viewer></run-py-viewer>
         </div>
       </div>
+
+      <footer>
+        <setting-bar></setting-bar>
+      </footer>
     `
   }
 

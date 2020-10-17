@@ -5,4 +5,5 @@ export enum IpcChannels {
 
 export enum LocalStorageKeys {
   Code = 'RUN_PY.CODES',
+  FontSize = 'FONT_SIZE',
 }
