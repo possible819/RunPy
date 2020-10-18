@@ -10,6 +10,7 @@ import { IpcUtil } from '../utils'
 @customElement('run-py-viewer')
 export class RunPyViewer extends LitElement {
   @property({ type: Object }) codeMirrorEditor?: CodeMirror.EditorFromTextArea
+  @property({ type: Number }) fontSize?: number
 
   static get styles(): CSSResultArray {
     return [
@@ -33,8 +34,6 @@ export class RunPyViewer extends LitElement {
   }
 
   firstUpdated(): void {
-    document.body.style.setProperty('--code-mirror-font-size', localStorage.getItem(LocalStorageKeys.FontSize + 'pt'))
-
     let codeEditor: HTMLTextAreaElement | null = this.renderRoot.querySelector('textarea#code-viewer')
     if (codeEditor) {
       this.codeMirrorEditor = CodeMirror.fromTextArea(codeEditor, {
@@ -48,6 +47,13 @@ export class RunPyViewer extends LitElement {
     }
 
     IpcUtil.addListener(IpcChannels.ResponseInterpret, this.displayResult.bind(this))
+  }
+
+  updated(changedProps: any) {
+    if (changedProps.has('fontSize')) {
+      document.body.style.setProperty('--code-mirror-font-size', `${this.fontSize}pt`)
+      this.codeMirrorEditor?.refresh()
+    }
   }
 
   displayResult(_event: Event, result: string | Error): void {

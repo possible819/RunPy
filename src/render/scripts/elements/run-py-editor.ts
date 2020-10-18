@@ -10,6 +10,7 @@ import { IpcUtil } from '../utils'
 @customElement('run-py-editor')
 export class RunPyEditor extends LitElement {
   @property({ type: Object }) codeMirrorEditor?: CodeMirror.EditorFromTextArea
+  @property({ type: Number }) fontSize?: number
   @property({ type: Number }) timeInterval: number = 600
   @property({ type: Object }) timer?: NodeJS.Timer
 
@@ -36,7 +37,7 @@ export class RunPyEditor extends LitElement {
   }
 
   firstUpdated(): void {
-    document.body.style.setProperty('--code-mirror-font-size', localStorage.getItem(LocalStorageKeys.FontSize + 'pt'))
+    document.body.style.setProperty('--code-mirror-font-size', localStorage.getItem(LocalStorageKeys.FontSize) + 'pt')
 
     let codeEditor: HTMLTextAreaElement | null = this.renderRoot.querySelector('textarea#code-editor')
     if (codeEditor) {
@@ -59,6 +60,13 @@ export class RunPyEditor extends LitElement {
 
       this.codeMirrorEditor.on('changes', this.onChangesHandler.bind(this))
       this.codeMirrorEditor.setValue(this.loadExecutedCode())
+    }
+  }
+
+  updated(changedProps: any) {
+    if (changedProps.has('fontSize')) {
+      document.body.style.setProperty('--code-mirror-font-size', `${this.fontSize}pt`)
+      this.codeMirrorEditor?.refresh()
     }
   }
 
