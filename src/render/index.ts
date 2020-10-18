@@ -3,10 +3,14 @@ import './scripts/elements/run-py-editor'
 import './scripts/elements/run-py-viewer'
 import './scripts/elements/setting-bar'
 
-import { CSSResult, LitElement, css, customElement, html } from 'lit-element'
+import { CSSResult, LitElement, css, customElement, html, property } from 'lit-element'
+
+import { LocalStorageKeys } from './consts'
 
 @customElement('run-py')
 export class RunPy extends LitElement {
+  @property({ type: Number }) fontSize?: number = Number(localStorage.getItem(LocalStorageKeys.FontSize))
+
   static get styles(): CSSResult {
     return css`
       :host {
@@ -49,15 +53,15 @@ export class RunPy extends LitElement {
     return html`
       <div id="container">
         <div id="editor-section" class="section">
-          <run-py-editor></run-py-editor>
+          <run-py-editor .fontSize="${this.fontSize}"></run-py-editor>
         </div>
         <div id="viewer-section" class="section">
-          <run-py-viewer></run-py-viewer>
+          <run-py-viewer .fontSize="${this.fontSize}"></run-py-viewer>
         </div>
       </div>
 
       <footer>
-        <setting-bar></setting-bar>
+        <setting-bar @setting-changed="${this.settingChangedHandler.bind(this)}"></setting-bar>
       </footer>
     `
   }
@@ -105,6 +109,12 @@ export class RunPy extends LitElement {
 
       container.addEventListener('mouseup', removeResizeHandler)
       container.addEventListener('mouseleave', removeResizeHandler)
+    }
+  }
+
+  settingChangedHandler(e: CustomEvent) {
+    if ('fontSize' in e.detail) {
+      this.fontSize = e.detail.fontSize
     }
   }
 }

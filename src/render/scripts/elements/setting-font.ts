@@ -69,7 +69,9 @@ export class SettingFont extends LitElement {
       input.value = String(this.max)
     } else {
       localStorage.setItem(LocalStorageKeys.FontSize, input.value)
-      document.body.style.setProperty('--code-mirror-font-size', input.value + 'pt')
+      this.dispatchEvent(
+        new CustomEvent('setting-changed', { detail: { fontSize: Number(input.value) }, composed: true })
+      )
     }
   }
 }
