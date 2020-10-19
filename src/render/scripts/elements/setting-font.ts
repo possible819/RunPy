@@ -67,11 +67,11 @@ export class SettingFont extends LitElement {
     const input: HTMLInputElement = e.currentTarget as HTMLInputElement
     if (Number(input.value) > this.max) {
       input.value = String(this.max)
-    } else {
-      localStorage.setItem(LocalStorageKeys.FontSize, input.value)
-      this.dispatchEvent(
-        new CustomEvent('setting-changed', { detail: { fontSize: Number(input.value) }, composed: true })
-      )
     }
+
+    localStorage.setItem(LocalStorageKeys.FontSize, input.value)
+    this.dispatchEvent(
+      new CustomEvent('setting-changed', { detail: { fontSize: Number(input.value) }, composed: true })
+    )
   }
 }

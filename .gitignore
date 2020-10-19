@@ -7,3 +7,5 @@ package-lock.json
 
 packages
 installers
+
+.DS_Store
