@@ -10,6 +10,7 @@ import { IpcUtil } from '../utils'
 @customElement('run-py-editor')
 export class RunPyEditor extends LitElement {
   @property({ type: Object }) codeMirrorEditor?: CodeMirror.EditorFromTextArea
+  @property({ type: Number }) fontSize?: number
   @property({ type: Number }) timeInterval: number = 600
   @property({ type: Object }) timer?: NodeJS.Timer
 
@@ -25,30 +26,47 @@ export class RunPyEditor extends LitElement {
         :host > .CodeMirror {
           flex: 1;
           height: inherit;
-          min-width: 50vw;
-          max-width: 50vw;
+          font-size: var(--code-mirror-font-size);
         }
       `,
     ]
   }
+
   render() {
     return html`<textarea id="code-editor"></textarea>`
   }
 
   firstUpdated(): void {
+    document.body.style.setProperty('--code-mirror-font-size', localStorage.getItem(LocalStorageKeys.FontSize) + 'pt')
+
     let codeEditor: HTMLTextAreaElement | null = this.renderRoot.querySelector('textarea#code-editor')
     if (codeEditor) {
       this.codeMirrorEditor = CodeMirror.fromTextArea(codeEditor, {
         lineNumbers: true,
         lineWrapping: true,
+        scrollbarStyle: 'null',
         theme: 'material',
         mode: 'python',
-        scrollbarStyle: 'null',
         autofocus: true,
+        tabSize: 2,
+        extraKeys: {
+          Tab: function (cm: Editor) {
+            const indentUnit: number = cm.getOption('indentUnit') || 0
+            const spaces = Array(indentUnit + 1).join(' ')
+            cm.replaceSelection(spaces)
+          },
+        },
       })
 
       this.codeMirrorEditor.on('changes', this.onChangesHandler.bind(this))
       this.codeMirrorEditor.setValue(this.loadExecutedCode())
+    }
+  }
+
+  updated(changedProps: any) {
+    if (changedProps.has('fontSize')) {
+      document.body.style.setProperty('--code-mirror-font-size', `${this.fontSize}pt`)
+      this.codeMirrorEditor?.refresh()
     }
   }
 
