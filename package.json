@@ -5,22 +5,43 @@
   "main": "dist/index.js",
   "repository": "https://github.com/possible819/RunPy",
   "author": "Jay Lee <jaylee.possible@gmail.com>",
+  "productName": "RunPy",
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"webpack -w --config webpack.config.dev.js\" \"tsc && electron .\"",
     "clean": "node ./yarn-scripts/clean.js",
     "build": "webpack && tsc",
     "build:dev": "webpack --config ./webpack.config.dev.js && tsc",
-    "packaging:mac": "yarn clean packages && yarn build && electron-packager . --overwrite --asar --platform darwin --arch x64 --out packages",
-    "packaging:win": "yarn clean packages && yarn build && electron-packager . --overwrite --asar --platform win32 --arich x64 --out packages",
-    "packaging:linux": "yarn clean packages && yarn build && electron-packager . --overwrite --asar --platform linux --arch x64 --out packages",
-    "packaging:clean": "yarn clean packages",
-    "installer:debian": "yarn packaging:linux && electron-installer-debian --src ./packages/run-py-linux-x64/ --dest ./installers/ --arch amd64",
-    "installer:dmg": "yarn packaging:mac && electron-installer-dmg ./packages/run-py-darwin-x64/run-py.app RunPy --out=./installers/",
-    "installer:win": "yarn packaging:win && electron-installer-windows --src ./packages/run-py-win32-x64/ --dest ./installers/",
-    "installer:clean": "yarn clean installers"
+    "make": "electron-forge make"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "asar": true
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "format": "ULFO"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        }
+      ]
+    }
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@types/codemirror": "^0.0.98",
     "asar": "^3.0.3",
     "concurrently": "^5.3.0",
