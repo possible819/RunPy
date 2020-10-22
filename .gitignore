@@ -5,7 +5,6 @@ yarn-error.log
 
 package-lock.json
 
-packages
-installers
+out
 
 .DS_Store
