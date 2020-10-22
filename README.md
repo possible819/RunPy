@@ -25,38 +25,51 @@ $ yarn build
 $ yarn build:dev
 ```
 
-# Scripts for pacakging application
-
-```sh
-# Packaging for MacOS
-$ yarn packaging:mac
-
-# Packaging for Windows
-$ yarn packaging:win
-
-# Packaging for Linux
-$ yarn packaging:linux
-
-# Clean up packages directory
-$ yarn packaging:clean
-```
-
 > Above scripts will generate each pacakges under ./packages
 
-# Scripts for creating installer
+# Scripts for creating installer via electron-forge
 
 ```sh
-# Creating installer for MacOS
-$ yarn installer:dmg
-
-# Creating installer for Windows
-$ yarn installer:win
-
-# Creating installer for Debian
-$ yarn installer:debian
+$ yarn make
 ```
 
-> Above scripts will generate each installers under ./installers
+> The script will generate an installer based on platform of running this script. Electron-forge will detect what current running platform is.
+
+# Configure packaging
+
+```json
+{
+  ...
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "asar": true
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "format": "ULFO"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        }
+      ]
+    }
+  },
+  ...
+}
+```
+
+By editing config block inside of `package.json`, you can customize packaging configuration.
+
+`pacakgeConfig` is block to customize `electron-package` step all the options are passed to `electron-package` task. (FYI out (distribution path) can't be overriden cause electron-forge is specifying the path inner side of sources)
 
 # Authors
 
